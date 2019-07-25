@@ -1,0 +1,23 @@
+<p>Welcome to the Book Club!</p>
+
+<p>Please Login from Here!</p>
+<form action="{% url 'userauth:login' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username"> <br/>
+    <input type="password" name="password" placeholder="Password"> <br/>
+    <input type="submit" value="Login"> <br/>
+</form>
+
+<br/>
+
+<p>New here? Create a free account!</p>
+
+<form action="{% url 'userauth:signup' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username"> <br/>
+    <input type="password" name="password" placeholder="Password"> <br/>
+    <input type="email" name="email" placeholder="abc@example.com"> <br/>
+    <input type="submit" value="Sign Up"> <br/>
+</form>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}

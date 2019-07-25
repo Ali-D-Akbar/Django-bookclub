@@ -1,34 +1,24 @@
 <p>Welcome to the Book Club!</p>
 
-{% if latest_book_list %}
-<ul>
-    {% for book in latest_book_list %}
-    <li><a href="{% url 'books:detail' book.id %}">{{ book.title }}</a></li>
-    {% endfor %}
-</ul>
+{% if request.session.username %}
+
+    <p>Welcome {{ request.session.username }} !</p>
+    <a class="btn btn-primary" href="{% url 'userauth:logout' %}">Logout?</a>
+    {% if latest_book_list %}
+    <ul>
+        {% for book in latest_book_list %}
+        <li><a href="{% url 'books:detail' book.id %}">{{ book.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No books are available.</p>
+
+    {% endif %}
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
 {% else %}
-<p>No books are available.</p>
+
+    <p>Please Login <a href="{% url 'userauth:index' %}">here</a> first</p>
 
 {% endif %}
-
-<p>Please Login from Here!</p>
-<form action="{% url 'books:login' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username"> <br/>
-    <input type="password" name="password" placeholder="Password"> <br/>
-    <input type="submit" value="Login"> <br/>
-</form>
-
-<br/>
-
-<p>New here? Create a free account!</p>
-
-<form action="{% url 'books:signup' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username"> <br/>
-    <input type="password" name="password" placeholder="Password"> <br/>
-    <input type="email" name="email" placeholder="abc@example.com"> <br/>
-    <input type="submit" value="Sign Up"> <br/>
-</form>
-
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}

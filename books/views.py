@@ -1,10 +1,6 @@
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
-from django.utils import timezone
+from django.http import HttpResponse
 from django.views import generic
-
-from books.models import User, Book
+from books.models import Book
 
 
 class IndexView(generic.ListView):
@@ -29,30 +25,3 @@ class DetailView(generic.DetailView):
         Excludes any questions that aren't published yet.
         """
         return Book.objects
-
-
-def login(request):
-    if request.POST['username'] == '' or request.POST['password'] == '':
-        return render(request, 'books/index.html', {
-            'error_message': "You didn't enter text in a field.",
-        })
-    if User.objects.filter(username__iexact=request.POST['username'], password=request.POST['password']).exists():
-        return HttpResponse("You have successfully logged in!")
-    else:
-        return render(request, 'books/index.html', {
-            'error_message': "USERNAME/PASSWORD MISMATCH.",
-        })
-
-
-def signup(request):
-    if request.POST['username'] == '' or request.POST['password'] == '' or request.POST['email'] == '':
-        return render(request, 'books/index.html', {
-            'error_message': "You didn't enter text in a field.",
-        })
-    user = User(username=request.POST['username'], password=request.POST['password'], email=request.POST['email'])
-    user.save()
-    return HttpResponse("You have successfully signed up!")
-
-
-def home(request):
-    return HttpResponse("Home Page!")
