@@ -1,6 +1,6 @@
 <p>Welcome to the Book Club!</p>
 
-{% if request.session.username %}
+{% if user.is_authenticated %}
 
     <h1>{{ book.title }}</h1>
 

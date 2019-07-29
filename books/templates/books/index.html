@@ -1,8 +1,8 @@
 <p>Welcome to the Book Club!</p>
 
-{% if request.session.username %}
+{% if user.is_authenticated %}
 
-    <p>Welcome {{ request.session.username }} !</p>
+    <p>Welcome {{ user.username }} !</p>
     <a class="btn btn-primary" href="{% url 'userauth:logout_user' %}">Logout?</a>
     {% if latest_book_list %}
     <ul>

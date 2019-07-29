@@ -7,6 +7,9 @@ from userauth.models import Profile
 class UserCreateForm(forms.ModelForm):
     class Meta:
         model = User
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
         fields = ["username", "password", "email"]
 
 
