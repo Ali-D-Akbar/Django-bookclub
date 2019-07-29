@@ -3,7 +3,7 @@
 {% if request.session.username %}
 
     <p>Welcome {{ request.session.username }} !</p>
-    <a class="btn btn-primary" href="{% url 'userauth:logout' %}">Logout?</a>
+    <a class="btn btn-primary" href="{% url 'userauth:logout_user' %}">Logout?</a>
     {% if latest_book_list %}
     <ul>
         {% for book in latest_book_list %}

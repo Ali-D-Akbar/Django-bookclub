@@ -6,7 +6,9 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.CharField(max_length=100)
+    GENDER_CHOICES = [(1, 'Male'), (0, 'Female')]
+    gender = models.IntegerField(choices=GENDER_CHOICES, default=1)
+    phone_number = models.TextField(max_length=20, default='0000')
 
 
 @receiver(post_save, sender=User)

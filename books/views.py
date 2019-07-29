@@ -19,9 +19,3 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Book
     template_name = 'books/detail.html'
-
-    def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
-        return Book.objects
