@@ -13,7 +13,7 @@ class IndexView(generic.ListView):
         published in the future).
         """
 
-        return Book.objects.order_by('-id')[:5]
+        return Book.objects[:5]
 
 
 class DetailView(generic.DetailView):

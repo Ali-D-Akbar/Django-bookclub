@@ -37,7 +37,6 @@ def signup(request):
         profile = profile_form.save(commit=False)
         profile.user = user
         profile.save()
-        request.session['username'] = user.username
         login(request, user)
         return redirect('books:index')
     else:
