@@ -1,8 +1,17 @@
-<p>Welcome to the Book Club!</p>
-
 {% if user.is_authenticated %}
 
-    <h1>{{ book.title }}</h1>
+    <font size="6">{{ book.title }}</font>
+
+    <div align="right">
+        <form action="{% url 'books:edit' book.id %}" method="post">
+            {% csrf_token %}
+            <input name="book_id" type="hidden" value="{{ book.id }}">
+            <input type="submit" value="edit">
+        </form>
+
+    </div>
+
+    <br>
 
     <p>by {{ book.author }}</p>
 

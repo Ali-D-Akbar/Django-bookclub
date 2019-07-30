@@ -2,8 +2,13 @@
 
 {% if user.is_authenticated %}
 
+
     <p>Welcome {{ user.username }} !</p>
+
     <a class="btn btn-primary" href="{% url 'userauth:logout_user' %}">Logout?</a>
+
+    <div align="right"> <a href="{% url 'books:add_book' %}">Add Book</a></div>
+
     {% if latest_book_list %}
     <ul>
         {% for book in latest_book_list %}
