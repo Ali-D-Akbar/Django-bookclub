@@ -1,6 +1,6 @@
 from django.db import models
 
-from userauth.models import User
+from django.contrib.auth.models import User
 
 
 class Book(models.Model):
