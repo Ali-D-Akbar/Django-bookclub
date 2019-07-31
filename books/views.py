@@ -1,10 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.core.serializers import json
+import json
+
+from django.core import serializers
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
 from books.forms import AddBookForm
-from books.middleware.user_authentication_middleware import UserAuthenticationMiddleware
+from books.middleware.user_authentication_middleware import UserAuthenticationMiddleware, \
+    SuperUserAuthenticationMiddleware
 from books.models import Book
 from django.utils.decorators import decorator_from_middleware
 
@@ -42,6 +46,17 @@ def add_book(request):
     else:
         add_book_form = AddBookForm()
     return render(request, 'books/add_book.html', {'add_book_form': add_book_form})
+
+
+@decorator_from_middleware(SuperUserAuthenticationMiddleware)
+def add_bulk(request):
+    if request.POST:
+        bulk_books = request.POST['json_bulk_data']
+        for deserialized_object in serializers.deserialize("json", bulk_books):
+            deserialized_object.save()
+        return HttpResponse("Data has been saved from the JSON file.")
+    else:
+        return render(request, 'books/add_bulk.html')
 
 
 def detail(request, pk):
