@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.core.serializers import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
@@ -28,6 +30,7 @@ def update_book(request, pk):
         return redirect('books:index')
 
 
+@login_required
 def add_book(request):
     add_book_form = AddBookForm(data=request.POST)
     if add_book_form.is_valid():
