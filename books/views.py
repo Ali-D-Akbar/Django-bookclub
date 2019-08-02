@@ -38,9 +38,8 @@ def update_book(request, pk):
 def add_book(request):
     add_book_form = AddBookForm(data=request.POST)
     if add_book_form.is_valid():
-        profile = Profile.objects.get(user=request.user)
-        book = add_book_form.save()
-        book.user_id = profile.id
+        book = add_book_form.save(commit=False)
+        book.user_id = request.user.id
         book.save()
         return redirect('books:add_book')
     else:
@@ -54,7 +53,7 @@ def add_bulk(request):
         bulk_books = request.POST['json_bulk_data']
         for deserialized_object in serializers.deserialize("json", bulk_books):
             deserialized_object.save()
-        return HttpResponse("Data has been saved from the JSON file.")
+        return HttpResponse("Data has been successfully saved from the JSON format to the database")
     else:
         return render(request, 'books/add_bulk.html')
 

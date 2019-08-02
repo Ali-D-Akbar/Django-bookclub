@@ -1,7 +1,7 @@
 [
   {
     "model": "books.book",
-    "pk": 10,
+    "pk": 6,
     "fields": {
       "title": "Traffic: Why We Drive the Way We Do and What It Says About Us",
       "author": "Tom Vanderbilt",
@@ -51,7 +51,7 @@
   },
   {
     "model": "books.book",
-    "pk": 6,
+    "pk":1,
     "fields": {
       "title": "Boneshake",
       "author": "Cherie Priest",
