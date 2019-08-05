@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 import json
 
+from django.contrib.auth.models import User
 from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -38,9 +39,8 @@ def update_book(request, pk):
 def add_book(request):
     add_book_form = AddBookForm(data=request.POST)
     if add_book_form.is_valid():
-        profile = Profile.objects.get(user=request.user)
-        book = add_book_form.save()
-        book.user_id = profile.id
+        book = add_book_form.save(commit=False)
+        book.user_id = request.user.id
         book.save()
         return redirect('books:add_book')
     else:
@@ -51,10 +51,13 @@ def add_book(request):
 @decorator_from_middleware(SuperUserAuthenticationMiddleware)
 def add_bulk(request):
     if request.POST:
-        bulk_books = request.POST['json_bulk_data']
-        for deserialized_object in serializers.deserialize("json", bulk_books):
-            deserialized_object.save()
-        return HttpResponse("Data has been saved from the JSON file.")
+        bulk_books = json.loads(request.POST['json_bulk_data'])
+        for book in bulk_books:
+            book_fields = book['fields']
+            Book.objects.create(title=book_fields['title'], author=book_fields['author'],
+                                description=book_fields['description'],
+                                user=User.objects.get(pk=int(book_fields['user'])))
+        return HttpResponse("Data has been successfully saved from the JSON format to the database")
     else:
         return render(request, 'books/add_bulk.html')
 
