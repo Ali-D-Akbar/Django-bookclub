@@ -1,8 +1,6 @@
 from django.contrib.auth.decorators import login_required
 import json
-
 from django.contrib.auth.models import User
-from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -12,8 +10,6 @@ from books.middleware.user_authentication_middleware import UserAuthenticationMi
     SuperUserAuthenticationMiddleware
 from books.models import Book
 from django.utils.decorators import decorator_from_middleware
-
-from userauth.models import Profile
 
 
 @decorator_from_middleware(UserAuthenticationMiddleware)

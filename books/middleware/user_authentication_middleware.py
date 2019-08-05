@@ -13,7 +13,11 @@ class UserAuthenticationMiddleware(object):
 
 class SuperUserAuthenticationMiddleware(object):
     def process_request(self, request):
-        if not request.user.is_superuser:
-            error_message = 'You are not allowed to add Bulk Data because you are not a Super User!'
-            return render(request, 'books/add_bulk.html', {'error_message': error_message})
+        try:
+            if not request.user.is_superuser:
+                error_message = 'You are not allowed to add Bulk Data because you are not a Super User!'
+                return render(request, 'books/add_bulk.html', {'error_message': error_message})
+        except AttributeError:
+            error_message = "You are not allowed to add Bulk Data because you are not a Super User!"
+            return render(request, 'books/index.html', {'error_message': error_message})
 

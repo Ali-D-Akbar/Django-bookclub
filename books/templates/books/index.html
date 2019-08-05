@@ -22,9 +22,10 @@
 
     {% endif %}
 
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
 {% else %}
+
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
     <p>Please Login <a href="{% url 'userauth:index' %}">here</a> first</p>
 
