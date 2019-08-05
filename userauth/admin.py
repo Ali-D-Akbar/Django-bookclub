@@ -17,8 +17,13 @@ class ProfileInline(admin.StackedInline):
 
 class CustomUserAdmin(UserAdmin):
     inlines = (ProfileInline, )
-    list_display = ('username', 'email', 'first_name', 'last_name', 'get_gender', 'get_phone_number')
+    list_display = ('get_profile_id', 'id', 'username', 'email', 'get_gender', 'get_phone_number')
     list_select_related = ('profile',)
+
+    def get_profile_id(self, instance):
+        return instance.profile.id
+
+    get_profile_id.short_description = 'ID'
 
     def get_gender(self, instance):
         return instance.profile.gender

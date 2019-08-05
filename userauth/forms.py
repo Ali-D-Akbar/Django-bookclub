@@ -10,7 +10,7 @@ class UserCreateForm(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
-        fields = ["username", "password", "email"]
+        fields = ["username", "email", "password"]
 
 
 class UserLoginForm(forms.Form):
