@@ -9,6 +9,8 @@
 
     <div align="right"> <a href="{% url 'books:add_book' %}">Add Book</a></div>
 
+    <div align="right"> <a href="{% url 'books:add_bulk' %}">Add Bulk of Books</a></div>
+
     {% if latest_book_list %}
     <ul>
         {% for book in latest_book_list %}
