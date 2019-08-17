@@ -1,10 +1,9 @@
-from django.contrib.auth.models import User
-from django.core.management.base import BaseCommand
 import json
+from getpass import getpass
 
-from django.utils.decorators import decorator_from_middleware
+from django.contrib.auth.models import User
+from django.core.management import BaseCommand
 
-from books.middleware.user_authentication_middleware import SuperUserAuthenticationMiddleware
 from books.models import Book
 
 
