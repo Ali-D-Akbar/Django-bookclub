@@ -1,7 +1,5 @@
 [
   {
-    "model": "books.book",
-    "pk": 6,
     "fields": {
       "title": "Traffic: Why We Drive the Way We Do and What It Says About Us",
       "author": "Tom Vanderbilt",
@@ -10,8 +8,6 @@
     }
   },
   {
-    "model": "books.book",
-    "pk": 2,
     "fields": {
       "title": "The First Days",
       "author": "Rhiannon Frater",
@@ -20,8 +16,6 @@
     }
   },
   {
-    "model": "books.book",
-    "pk": 3,
     "fields": {
       "title": "Feed",
       "author": "Mira Grant",
@@ -30,8 +24,6 @@
     }
   },
   {
-    "model": "books.book",
-    "pk": 4,
     "fields": {
       "title": "Rot & Ruin",
       "author": "Jonathan Maberry",
@@ -40,8 +32,6 @@
     }
   },
   {
-    "model": "books.book",
-    "pk": 5,
     "fields": {
       "title": "Married with Zombies",
       "author": "Jesse Petersen",
@@ -50,8 +40,6 @@
     }
   },
   {
-    "model": "books.book",
-    "pk":1,
     "fields": {
       "title": "Boneshake",
       "author": "Cherie Priest",
@@ -60,8 +48,6 @@
     }
   },
   {
-    "model": "books.book",
-    "pk": 7,
     "fields": {
       "title": "Life of Pi",
       "author": "Yann Martel",

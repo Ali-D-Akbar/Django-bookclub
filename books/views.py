@@ -1,19 +1,14 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 import json
-
 from django.contrib.auth.models import User
-from django.core import serializers
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
 from books.forms import AddBookForm
-from books.middleware.user_authentication_middleware import UserAuthenticationMiddleware, \
-    SuperUserAuthenticationMiddleware
+from books.middleware.user_authentication_middleware import UserAuthenticationMiddleware
 from books.models import Book
 from django.utils.decorators import decorator_from_middleware
-
-from userauth.models import Profile
 
 
 @decorator_from_middleware(UserAuthenticationMiddleware)
@@ -25,12 +20,12 @@ def edit(request, pk):
 def update_book(request, pk):
     if request.method == "POST":
         book = get_object_or_404(Book, id=pk)
-        if book is not None:
-            book.title = request.POST.get('title')
-            book.author = request.POST.get('author')
-            book.description = request.POST.get('description')
-            book.save()
-            return redirect(reverse('books:detail', args=[pk]))
+        book.title = request.POST.get('title')
+        book.author = request.POST.get('author')
+        book.description = request.POST.get('description')
+        book.save()
+        return redirect(reverse('books:detail', args=[pk]))
+
     else:
         return redirect('books:index')
 
@@ -48,7 +43,7 @@ def add_book(request):
     return render(request, 'books/add_book.html', {'add_book_form': add_book_form})
 
 
-@decorator_from_middleware(SuperUserAuthenticationMiddleware)
+@user_passes_test(lambda u: u.is_superuser)
 def add_bulk(request):
     if request.POST:
         bulk_books = json.loads(request.POST['json_bulk_data'])
